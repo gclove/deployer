@@ -3,8 +3,15 @@ fixture:
     -
       notification: REBELinBLUE\Deployer\Notifications\Configurable\DeploymentFailed
       successful: false
+      almostSuccessful: false
       field: on_deployment_failure
     -
       notification: REBELinBLUE\Deployer\Notifications\Configurable\DeploymentSucceeded
       successful: true
+      almostSuccessful: false
+      field: on_deployment_success
+    -
+      notification: REBELinBLUE\Deployer\Notifications\Configurable\DeploymentSucceeded
+      successful: false
+      almostSuccessful: true
       field: on_deployment_success

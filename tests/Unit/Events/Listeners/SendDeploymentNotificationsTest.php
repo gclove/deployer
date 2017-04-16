@@ -26,6 +26,7 @@ class SendDeploymentNotificationsTest extends TestCase
     public function testHandleSendsNotification(
         $notification,
         $isSuccessful,
+        $isAlmostSuccessful,
         $field
     ) {
         $expected = m::mock(Channel::class);
@@ -41,7 +42,8 @@ class SendDeploymentNotificationsTest extends TestCase
         $deployment = m::mock(Deployment::class);
         $deployment->shouldReceive('getAttribute')->atLeast()->once()->with('project')->andReturn($project);
         $deployment->shouldReceive('isAborted')->once()->andReturn(false);
-        $deployment->shouldReceive('isSuccessful')->once()->andReturn($isSuccessful);
+        $deployment->shouldReceive('isSuccessful')->andReturn($isSuccessful);
+        $deployment->shouldReceive('isAlmostSuccessful')->andReturn($isAlmostSuccessful);
 
         $translator = m::mock(Translator::class);
 
@@ -73,7 +75,7 @@ class SendDeploymentNotificationsTest extends TestCase
         $deployment = m::mock(Deployment::class);
         $deployment->shouldReceive('getAttribute')->atLeast()->once()->with('project')->andReturn($project);
         $deployment->shouldReceive('isAborted')->once()->andReturn(true);
-        $deployment->shouldReceive('isSuccessful')->never()->andReturn(false);
+        $deployment->shouldNotReceive('isSuccessful');
 
         $translator = m::mock(Translator::class);
 

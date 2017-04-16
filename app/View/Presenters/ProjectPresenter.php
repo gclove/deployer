@@ -17,11 +17,14 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentCcTrayStatus()
     {
-        if ($this->status === Project::FINISHED || $this->status === Project::FAILED) {
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        if ($project->status === Project::FINISHED || $project->status === Project::FAILED) {
             return 'Sleeping';
-        } elseif ($this->status === Project::DEPLOYING) {
+        } elseif ($project->status === Project::DEPLOYING) {
             return 'Building';
-        } elseif ($this->status === Project::PENDING) {
+        } elseif ($project->status === Project::PENDING) {
             return 'Pending';
         }
 
@@ -35,13 +38,16 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentReadableStatus()
     {
-        if ($this->status === Project::FINISHED) {
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        if ($project->status === Project::FINISHED) {
             return $this->translator->trans('projects.finished');
-        } elseif ($this->status === Project::DEPLOYING) {
+        } elseif ($project->status === Project::DEPLOYING) {
             return $this->translator->trans('projects.deploying');
-        } elseif ($this->status === Project::FAILED) {
+        } elseif ($project->status === Project::FAILED) {
             return $this->translator->trans('projects.failed');
-        } elseif ($this->status === Project::PENDING) {
+        } elseif ($project->status === Project::PENDING) {
             return $this->translator->trans('projects.pending');
         }
 
@@ -55,13 +61,16 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentIcon()
     {
-        if ($this->status === Project::FINISHED) {
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        if ($project->status === Project::FINISHED) {
             return 'check';
-        } elseif ($this->status === Project::DEPLOYING) {
+        } elseif ($project->status === Project::DEPLOYING) {
             return 'spinner fa-pulse';
-        } elseif ($this->status === Project::FAILED) {
+        } elseif ($project->status === Project::FAILED) {
             return 'warning';
-        } elseif ($this->status === Project::PENDING) {
+        } elseif ($project->status === Project::PENDING) {
             return 'clock-o';
         }
 
@@ -75,13 +84,16 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentCssClass()
     {
-        if ($this->status === Project::FINISHED) {
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        if ($project->status === Project::FINISHED) {
             return 'success';
-        } elseif ($this->status === Project::DEPLOYING) {
+        } elseif ($project->status === Project::DEPLOYING) {
             return 'warning';
-        } elseif ($this->status === Project::FAILED) {
+        } elseif ($project->status === Project::FAILED) {
             return 'danger';
-        } elseif ($this->status === Project::PENDING) {
+        } elseif ($project->status === Project::PENDING) {
             return 'info';
         }
 
@@ -95,7 +107,10 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentAppStatus()
     {
-        $status = $this->applicationCheckUrlStatus();
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        $status = $project->applicationCheckUrlStatus();
 
         return $this->getStatusLabel($status);
     }
@@ -107,7 +122,10 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentAppStatusCss()
     {
-        $status = $this->applicationCheckUrlStatus();
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        $status = $project->applicationCheckUrlStatus();
 
         return $this->getStatusCss($status);
     }
@@ -119,7 +137,10 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentHeartBeatStatus()
     {
-        $status = $this->heartbeatsStatus();
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        $status = $project->heartbeatsStatus();
 
         return $this->getStatusLabel($status);
     }
@@ -131,7 +152,10 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentHeartBeatStatusCss()
     {
-        $status = $this->heartbeatsStatus();
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        $status = $project->heartbeatsStatus();
 
         return $this->getStatusCss($status);
     }
@@ -143,7 +167,10 @@ class ProjectPresenter extends CommandPresenter
      */
     public function presentTypeIcon()
     {
-        $details = $this->accessDetails();
+        /** @var Project $project */
+        $project = $this->getWrappedObject();
+
+        $details = $project->accessDetails();
 
         if (isset($details['domain'])) {
             if (preg_match('/github\.com/', $details['domain'])) {

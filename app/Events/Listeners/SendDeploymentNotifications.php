@@ -42,7 +42,7 @@ class SendDeploymentNotifications
         $notification = DeploymentFailed::class;
         $event        = 'deployment_failure';
 
-        if ($deployment->isSuccessful()) {
+        if ($deployment->isSuccessful() || $deployment->isAlmostSuccessful()) {
             $notification = DeploymentSucceeded::class;
             $event        = 'deployment_success';
         }

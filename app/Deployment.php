@@ -154,6 +154,16 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
     }
 
     /**
+     * Determines whether the deployment is successful with warning.
+     *
+     * @return bool
+     */
+    public function isAlmostSuccessful()
+    {
+        return ($this->status === self::COMPLETED_WITH_ERRORS);
+    }
+
+    /**
      * Determines whether the deployment is successful.
      *
      * @return bool

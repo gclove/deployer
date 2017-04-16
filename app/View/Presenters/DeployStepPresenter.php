@@ -3,6 +3,7 @@
 namespace REBELinBLUE\Deployer\View\Presenters;
 
 use REBELinBLUE\Deployer\Command;
+use REBELinBLUE\Deployer\DeployStep;
 
 /**
  * The view presenter for a deploy step class.
@@ -16,13 +17,16 @@ class DeployStepPresenter extends Presenter
      */
     public function presentName()
     {
-        if (!is_null($this->command_id)) {
-            return $this->command->name;
-        } elseif ($this->stage === Command::DO_INSTALL) {
+        /** @var DeployStep $model */
+        $model = $this->getWrappedObject();
+
+        if (!is_null($model->command_id)) {
+            return $model->command->name;
+        } elseif ($model->stage === Command::DO_INSTALL) {
             return $this->translator->trans('commands.install');
-        } elseif ($this->stage === Command::DO_ACTIVATE) {
+        } elseif ($model->stage === Command::DO_ACTIVATE) {
             return $this->translator->trans('commands.activate');
-        } elseif ($this->stage === Command::DO_PURGE) {
+        } elseif ($model->stage === Command::DO_PURGE) {
             return $this->translator->trans('commands.purge');
         }
 

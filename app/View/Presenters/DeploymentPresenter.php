@@ -20,9 +20,14 @@ class DeploymentPresenter extends Presenter
      */
     public function presentCcTrayStatus()
     {
-        if ($this->status === Deployment::COMPLETED || $this->status === Deployment::COMPLETED_WITH_ERRORS) {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
+        if ($deployment->status === Deployment::COMPLETED ||
+            $deployment->status === Deployment::COMPLETED_WITH_ERRORS
+        ) {
             return 'Success';
-        } elseif ($this->status === Deployment::FAILED || $this->status === Deployment::ABORTED) {
+        } elseif ($deployment->status === Deployment::FAILED || $deployment->status === Deployment::ABORTED) {
             return 'Failure';
         }
 
@@ -36,17 +41,20 @@ class DeploymentPresenter extends Presenter
      */
     public function presentReadableStatus()
     {
-        if ($this->status === Deployment::COMPLETED) {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
+        if ($deployment->status === Deployment::COMPLETED) {
             return $this->translator->trans('deployments.completed');
-        } elseif ($this->status === Deployment::COMPLETED_WITH_ERRORS) {
+        } elseif ($deployment->status === Deployment::COMPLETED_WITH_ERRORS) {
             return $this->translator->trans('deployments.completed_with_errors');
-        } elseif ($this->status === Deployment::ABORTING) {
+        } elseif ($deployment->status === Deployment::ABORTING) {
             return $this->translator->trans('deployments.aborting');
-        } elseif ($this->status === Deployment::ABORTED) {
+        } elseif ($deployment->status === Deployment::ABORTED) {
             return $this->translator->trans('deployments.aborted');
-        } elseif ($this->status === Deployment::FAILED) {
+        } elseif ($deployment->status === Deployment::FAILED) {
             return $this->translator->trans('deployments.failed');
-        } elseif ($this->status === Deployment::DEPLOYING) {
+        } elseif ($deployment->status === Deployment::DEPLOYING) {
             return $this->translator->trans('deployments.deploying');
         }
 
@@ -72,14 +80,17 @@ class DeploymentPresenter extends Presenter
      */
     public function presentIcon()
     {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
         $finished_statuses = [Deployment::FAILED, Deployment::COMPLETED_WITH_ERRORS,
                               Deployment::ABORTING, Deployment::ABORTED, ];
 
-        if ($this->status === Deployment::COMPLETED) {
+        if ($deployment->status === Deployment::COMPLETED) {
             return 'check';
-        } elseif (in_array($this->status, $finished_statuses, true)) {
+        } elseif (in_array($deployment->status, $finished_statuses, true)) {
             return 'warning';
-        } elseif ($this->status === Deployment::DEPLOYING) {
+        } elseif ($deployment->status === Deployment::DEPLOYING) {
             return 'spinner fa-pulse';
         }
 
@@ -93,11 +104,18 @@ class DeploymentPresenter extends Presenter
      */
     public function presentCssClass()
     {
-        if ($this->status === Deployment::COMPLETED || $this->status === Deployment::COMPLETED_WITH_ERRORS) {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
+        $finished_statuses = [Deployment::FAILED, Deployment::ABORTING, Deployment::ABORTED];
+
+        if ($deployment->status === Deployment::COMPLETED ||
+            $deployment->status === Deployment::COMPLETED_WITH_ERRORS
+        ) {
             return 'success';
-        } elseif (in_array($this->status, [Deployment::FAILED, Deployment::ABORTING, Deployment::ABORTED], true)) {
+        } elseif (in_array($deployment->status, $finished_statuses, true)) {
             return 'danger';
-        } elseif ($this->status === Deployment::DEPLOYING) {
+        } elseif ($deployment->status === Deployment::DEPLOYING) {
             return 'warning';
         }
 
@@ -111,11 +129,18 @@ class DeploymentPresenter extends Presenter
      */
     public function presentTimelineCssClass()
     {
-        if ($this->status === Deployment::COMPLETED || $this->status === Deployment::COMPLETED_WITH_ERRORS) {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
+        $finished_statuses = [Deployment::FAILED, Deployment::ABORTING, Deployment::ABORTED];
+
+        if ($deployment->status === Deployment::COMPLETED ||
+            $deployment->status === Deployment::COMPLETED_WITH_ERRORS
+        ) {
             return 'green';
-        } elseif (in_array($this->status, [Deployment::FAILED, Deployment::ABORTING, Deployment::ABORTED], true)) {
+        } elseif (in_array($deployment->status, $finished_statuses, true)) {
             return 'red';
-        } elseif ($this->status === Deployment::DEPLOYING) {
+        } elseif ($deployment->status === Deployment::DEPLOYING) {
             return 'yellow';
         }
 
@@ -129,15 +154,18 @@ class DeploymentPresenter extends Presenter
      */
     public function presentCommitterName()
     {
-        if ($this->committer === Deployment::LOADING) {
-            if ($this->status === Deployment::FAILED) {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
+        if ($deployment->committer === Deployment::LOADING) {
+            if ($deployment->status === Deployment::FAILED) {
                 return $this->translator->trans('deployments.unknown');
             }
 
             return $this->translator->trans('deployments.loading');
         }
 
-        return $this->committer;
+        return $deployment->committer;
     }
 
     /**
@@ -147,14 +175,17 @@ class DeploymentPresenter extends Presenter
      */
     public function presentShortCommitHash()
     {
-        if ($this->short_commit === Deployment::LOADING) {
-            if ($this->status === Deployment::FAILED) {
+        /** @var Deployment $project */
+        $deployment = $this->getWrappedObject();
+
+        if ($deployment->short_commit === Deployment::LOADING) {
+            if ($deployment->status === Deployment::FAILED) {
                 return $this->translator->trans('deployments.unknown');
             }
 
             return $this->translator->trans('deployments.loading');
         }
 
-        return $this->short_commit;
+        return $deployment->short_commit;
     }
 }

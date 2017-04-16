@@ -1,3 +1,9 @@
 parameters:
-    ignoreErrors:
-        - '#Function token not found#'
+  ignoreErrors:
+    - '#Call to an undefined method REBELinBLUE\\Deployer\\Providers\\RouteServiceProvider::namespace\(\)#'
+    - '#Call to an undefined method REBELinBLUE\\Deployer\\Providers\\RouteServiceProvider::middleware\(\)#'
+    - '#Call to an undefined method REBELinBLUE\\Deployer\\Providers\\RouteServiceProvider::pattern\(\)#' # Magic methods from router
+    - '#Call to an undefined static method REBELinBLUE\\Deployer\\[a-zA-Z]+::where\(\)#' # Eloquent methods
+    - '#Call to an undefined static method REBELinBLUE\\Deployer\\[a-zA-Z]+::join\(\)#'
+    - '#Access to an undefined property REBELinBLUE\\Deployer\\[a-zA-Z]+::\$[a-zA-Z0-9_]+#' # Magic properties - FIXME: There must be a nicer way
+    - '#Function token not found#' # Global method
