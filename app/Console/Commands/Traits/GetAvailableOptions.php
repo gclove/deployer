@@ -4,7 +4,6 @@ namespace REBELinBLUE\Deployer\Console\Commands\Traits;
 
 use DateTimeZone;
 use Illuminate\Support\Collection;
-use PDO;
 
 trait GetAvailableOptions
 {

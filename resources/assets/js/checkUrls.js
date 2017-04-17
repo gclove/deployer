@@ -215,8 +215,8 @@ var app = app || {};
                 data.status_css = 'danger';
                 data.icon_css   = 'warning';
                 data.status     = Lang.get('checkUrls.failed');
-                data.has_run    = data.last_seen ? true : false;
-                data.has_log    = data.last_log ? true : false;
+                data.has_run    = !!data.last_seen;
+                data.has_log    = !!data.last_log;
             } else if (parseInt(this.model.get('status')) === ONLINE) {
                 data.status_css = 'success';
                 data.icon_css   = 'check';

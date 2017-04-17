@@ -106,7 +106,7 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
      * @param int $model_id
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return array
+     * @return void
      */
     public function refreshBranches($model_id)
     {

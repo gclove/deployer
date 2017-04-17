@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 use REBELinBLUE\Deployer\Project;
 use REBELinBLUE\Deployer\Repositories\Contracts\ProjectRepositoryInterface;
 use REBELinBLUE\Deployer\Services\Filesystem\Filesystem;
-use REBELinBLUE\Deployer\Services\Scripts\Runner as Process;
 
 /**
  * Checks for and cleans up orphaned git mirrors.
@@ -42,7 +41,6 @@ class ClearOrphanMirrors extends Command
      * ClearOrphanMirrors constructor.
      *
      * @param ProjectRepositoryInterface $repository
-     * @param Process                    $process
      * @param Filesystem                 $filesystem
      */
     public function __construct(ProjectRepositoryInterface $repository, Filesystem $filesystem)

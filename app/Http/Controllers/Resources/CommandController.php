@@ -33,8 +33,6 @@ class CommandController extends Controller
      *
      * @param CommandRepositoryInterface $commandRepository
      * @param ProjectRepositoryInterface $projectRepository
-     * @param ViewFactory                $view
-     * @param Translator                 $translator
      */
     public function __construct(
         CommandRepositoryInterface $commandRepository,

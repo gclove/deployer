@@ -298,7 +298,7 @@ var app = app || {};
                 data.status_css = 'danger';
                 data.icon_css   = 'warning';
                 data.status     = Lang.get('servers.failed');
-                data.has_log    = data.connect_log ? true : false;
+                data.has_log    = !!data.connect_log;
             }
 
             this.$el.html(this.template(data));

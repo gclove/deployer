@@ -229,7 +229,7 @@ var app = app || {};
                 data.status_css = 'danger';
                 data.icon_css   = 'warning';
                 data.status     = Lang.get('heartbeats.missing');
-                data.has_run    = data.last_activity ? true : false;
+                data.has_run    = !!data.last_activity;
             }
 
             data.interval_label = Lang.get('heartbeats.interval_' + data.interval);

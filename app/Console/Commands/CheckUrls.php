@@ -51,8 +51,6 @@ class CheckUrls extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return bool
      */
     public function handle()
     {
