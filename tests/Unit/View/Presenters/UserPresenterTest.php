@@ -3,6 +3,7 @@
 namespace REBELinBLUE\Deployer\Tests\Unit\View\Presenters;
 
 use Creativeorange\Gravatar\Gravatar;
+use Illuminate\Contracts\Translation\Translator;
 use Mockery as m;
 use REBELinBLUE\Deployer\Tests\TestCase;
 use REBELinBLUE\Deployer\User;
@@ -24,10 +25,12 @@ class UserPresenterTest extends TestCase
         $user = m::mock(User::class);
         $user->shouldReceive('getAttribute')->atLeast()->once()->with('avatar')->andReturn($expected);
 
+        $translator = m::mock(Translator::class);
+
         $gravatar = m::mock(Gravatar::class);
         $gravatar->shouldNotReceive('get');
 
-        $presenter = new UserPresenter($gravatar);
+        $presenter = new UserPresenter($translator, $gravatar);
         $presenter->setWrappedObject($user);
         $actual    = $presenter->avatar_url;
 
@@ -43,6 +46,8 @@ class UserPresenterTest extends TestCase
         $email    = 'user@example.com';
         $expected = 'a-gravatar-url';
 
+        $translator = m::mock(Translator::class);
+
         $gravatar = m::mock(Gravatar::class);
         $gravatar->shouldReceive('get')->once()->with($email)->andReturn($expected);
 
@@ -50,7 +55,7 @@ class UserPresenterTest extends TestCase
         $user->shouldReceive('getAttribute')->once()->with('avatar')->andReturn(false);
         $user->shouldReceive('getAttribute')->atLeast()->once()->with('email')->andReturn($email);
 
-        $presenter = new UserPresenter($gravatar);
+        $presenter = new UserPresenter($translator, $gravatar);
         $presenter->setWrappedObject($user);
         $actual    = $presenter->avatar_url;
 
